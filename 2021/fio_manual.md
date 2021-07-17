@@ -2,11 +2,41 @@
 * work load  
 我一般习惯于翻译为负载，一个IO的负载的定义其实没有那么简单。比如，涉及的进程或者线程数，IO的产生方式等等。
 
-* type of I/O  
-读，写，顺序还是随机，同步还是异步等。这是IO负载的重要组成部分。
+* job  
+一个负载，一个job的方式进行，job就是对一个负载的标识。个人认为，这个类似于vdbench中的RD(run definition)
 
 * global parameters  
 fio中有所谓的全局参数，这些配置参数会被每个thread继承，除非为线程独立指定特定的配置参数。
+
+* type of I/O  
+读，写，顺序还是随机，同步还是异步等。这是IO负载的重要组成部分。
+
+* engine  
+engine有多种，比如libaio，而且有的是平台特定的，比如splice engine只有在Linux上有。
+
+## 几个注意点
+* fio使用pthread的mutex来主持signalling和locking，但是很显然，很多平台并不支持进程间共享pthread mutex。
+* fio命令行参数格式和job文件中使用的参数格式，略有区别，比如，job文件中是iodepth=2, 命令行是 --iodepth 2 or --iodepth=2。
+
+## 参数的使用可能受限，需要注意一下几个方面
+* memory locking.
+* I/O scheduler switching.
+* decreasing the nice value.
+
+## 运行FIO (1.8)
+* 直接指定job文件即可，可以接收多个job文件，默认会依次串行执行这些job。
+* 在job文件中，fio通过`[]`来识别一个新的job，在命令行下，通过`--name`选项类区分不同的job。
+
+## FIO 如何工作 (1.9)
+定义一个job文件，其中参数分为两部分：
+* global section 
+* job section
+* global 中的参数是所有job共享的参数，job部分指定该job特定的参数。
+
+Fio的参数的几个比较
+* IO type中的buffered  IO/direct IO/row IO 和 IO engine有什么关联？
+* block size 和 IO size 的区别？
+* I/O depth 只在 async engine 中生效。
 
 ## 参数
 #### time_based
