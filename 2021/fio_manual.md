@@ -43,6 +43,12 @@ Fio的参数的几个比较
 debug可以跟踪job运行的不同侧面，非常有意思，比较典型的比如。
 * --output=filename  
 这个不是有趣，只是比较有用，在刚开始用fio的时候，我是将输出 tee到一个文件。
+* --cmdhelp=command
+这个可以查看指定的配置命令的用法，比如thread，还可以列出所有的可用command。
+* --enghelp
+列出所有支持的engine，现在支持有将近20个。
+* --showcmd
+这个也很有意思，可以把job中的选项转为命令行选项。
 
 ## 参数
 #### time_based
