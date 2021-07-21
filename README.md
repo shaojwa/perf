@@ -5,6 +5,7 @@
 
 #### 基本命令
 - [ps进程按rss排序](2021/ps_rss_sort.md)
+- [查看硬盘缓存大小](2021/disk_buffer_perf.md)
 
 #### 工具使用
 1. [fio使用手册](2021/fio_manual.md)
