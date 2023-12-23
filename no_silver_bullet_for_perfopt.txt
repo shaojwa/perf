@@ -1,1 +1,18 @@
+os:
+/proc/sys/kernel/pid_max
+/proc/sys/fs/file-max
 
+disk:
+cat /sys/block/sda/queue/nr_requests
+echo 1024 > /sys/block/<disk-name>/queue/nr_requests
+cat /sys/block/sda/queue/scheduler
+echp deadline > /sys/block/sda/queue/scheduler
+echo noop > /sys/block/sda/queue/scheduler
+
+mem:
+client: /sys/block/<disk-name>/queue/read_ahead_kb
+disable swap: echo "vm.swappiness=0" >> /etc/sysctl.conf
+least free-mem: echo 262144 > /proc/sys/vm/min_free_kbytes
+
+net:
+jumbo frmes: ifconfig eth0 mtu 10000
