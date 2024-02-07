@@ -1,0 +1,1 @@
+块不需要用drop_caches，块直接走iSCSI协议。
